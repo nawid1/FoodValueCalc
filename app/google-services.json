@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "441428927106",
+    "project_id": "food-waste-value-tracker",
+    "storage_bucket": "food-waste-value-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441428927106:android:8668f53fb86f0d77e80a9b",
+        "android_client_info": {
+          "package_name": "com.foodwaste.foodwastevaluetracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441428927106-cpv85qn03cf30ucq73nelccam5kjvlha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB9he5lS0oXvT3erQaVYn4bVMwm1NI99Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441428927106-cpv85qn03cf30ucq73nelccam5kjvlha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

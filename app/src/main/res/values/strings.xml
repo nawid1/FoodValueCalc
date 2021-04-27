@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Food Waste Value Tracker</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="Email">Email</string>
+    <string name="password">Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+</resources>
