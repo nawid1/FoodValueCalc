@@ -1,10 +1,17 @@
 <resources>
     <string name="app_name">Food Waste Value Tracker</string>
-    <string name="register">Register</string>
+    <string name="registerBtn">Register</string>
     <string name="email">Email</string>
     <string name="login">Login</string>
     <string name="Email">Email</string>
     <string name="password">Password</string>
+    <string name="emailAdress">E-mail</string>
+    <string name="passwordRegister">Password</string>
+    <string name="password_againRegister">Password again</string>
+    <string name="join_nowRegister">Join now</string>
+    <string name="nameRegister">Name</string>
+    <string name="register">Register</string>
+    <string name="password_again">Password again</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 
