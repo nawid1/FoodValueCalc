@@ -40,7 +40,7 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
             <EditText
-                android:id="@+id/passwordTxtField"
+                android:id="@+id/passwordLogin"
                 android:layout_width="210dp"
                 android:layout_height="49dp"
                 android:layout_marginTop="36dp"
@@ -49,11 +49,11 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textColorHint="#FFFFFF"
-                card_view:layout_constraintEnd_toEndOf="@+id/userNameTxtField"
-                card_view:layout_constraintTop_toBottomOf="@+id/userNameTxtField" />
+                card_view:layout_constraintEnd_toEndOf="@+id/emailLogin"
+                card_view:layout_constraintTop_toBottomOf="@+id/emailLogin" />
 
             <EditText
-                android:id="@+id/userNameTxtField"
+                android:id="@+id/emailLogin"
                 android:layout_width="210dp"
                 android:layout_height="49dp"
                 android:layout_marginTop="156dp"
@@ -74,8 +74,8 @@
                 android:layout_marginTop="60dp"
                 android:text="@string/login"
                 card_view:backgroundTint="#03A9F4"
-                card_view:layout_constraintEnd_toEndOf="@+id/passwordTxtField"
-                card_view:layout_constraintTop_toBottomOf="@+id/passwordTxtField" />
+                card_view:layout_constraintEnd_toEndOf="@+id/passwordLogin"
+                card_view:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
