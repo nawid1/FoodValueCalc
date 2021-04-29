@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class StartActivity extends AppCompatActivity {
@@ -22,10 +24,13 @@ public class StartActivity extends AppCompatActivity {
    private Button login;
    private FirebaseAuth auth;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
 
         email = findViewById(R.id.emailLogin);
         password = findViewById(R.id.passwordLogin);
@@ -35,12 +40,17 @@ public class StartActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
 
+
+
+        //Skrive data til firebase med nedstående kode
+        //FirebaseDatabase.getInstance("https://food-waste-value-tracker-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Program").child("Python").setValue("SNAKE");
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             String emailInput = email.getText().toString();
-            String passwordInput = email.getText().toString();
+            String passwordInput = password.getText().toString();
 
             loginUser(emailInput,passwordInput);
 
@@ -56,8 +66,23 @@ public class StartActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 
+    //onStart funktionen, der tjekker hvis brugeren allerede har registret, så bliver brugeren direkte startet i Main activity
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!=null){
+            startActivity(new Intent(StartActivity.this, MainActivity.class));
+        }
+
+    }
+
+    //Login funktionen. Den er udenfor main men bliver kaldt længere oppe.
     private void loginUser(String email,String password) {
 
         auth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -69,6 +94,8 @@ public class StartActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
 
     }
 
