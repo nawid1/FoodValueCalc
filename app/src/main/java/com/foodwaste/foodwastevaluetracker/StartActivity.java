@@ -1,5 +1,6 @@
 package com.foodwaste.foodwastevaluetracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,7 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,11 +55,12 @@ public class StartActivity extends AppCompatActivity {
 
             String emailInput = email.getText().toString();
             String passwordInput = password.getText().toString();
+            if (emailInput.isEmpty()||passwordInput.isEmpty()){
+                Toast.makeText(StartActivity.this,"Please Fill out Email and Password",Toast.LENGTH_SHORT).show();
+            }else{
+                loginUser(emailInput,passwordInput);
+                }
 
-            loginUser(emailInput,passwordInput);
-
-            startActivity(new Intent(StartActivity.this, MainActivity.class));
-            finish();
             }
         });
 
@@ -70,6 +75,31 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
+    //Login method. Den er udenfor main men bliver kaldt længere oppe.
+    private void loginUser(String email,String password) {
+
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(Task<AuthResult>task) {
+
+               if (task.isSuccessful()) {
+                   Toast.makeText(StartActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                   Intent intent = new Intent(StartActivity.this,MainActivity.class);
+                   intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                   startActivity(intent);
+                   finish();
+               }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(StartActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+    }
     //onStart funktionen, der tjekker hvis brugeren allerede har registret, så bliver brugeren direkte startet i Main activity
     @Override
     protected void onStart() {
@@ -77,25 +107,10 @@ public class StartActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
+
             startActivity(new Intent(StartActivity.this, MainActivity.class));
+            finish();
         }
-
-    }
-
-    //Login funktionen. Den er udenfor main men bliver kaldt længere oppe.
-    private void loginUser(String email,String password) {
-
-        auth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-
-                Toast.makeText(StartActivity.this, "Login Successful",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(StartActivity.this, MainActivity.class));
-                finish();
-            }
-        });
-
-
 
     }
 
