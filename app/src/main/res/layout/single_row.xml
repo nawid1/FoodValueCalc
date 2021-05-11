@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp"
+    android:elevation="3dp"
+    app:cardUseCompatPadding="true"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameTxt"
+            android:textSize="25dp"
+            android:text="Food Name">
+
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/priceTxt"
+            android:textSize="25dp"
+            android:text="Food price">
+
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/usageTxt"
+            android:textSize="25dp"
+            android:text="Food usage">
+
+        </TextView>
+
+
+    </LinearLayout>
+    
+</androidx.cardview.widget.CardView>

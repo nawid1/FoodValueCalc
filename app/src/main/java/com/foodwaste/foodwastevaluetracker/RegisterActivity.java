@@ -1,23 +1,16 @@
 package com.foodwaste.foodwastevaluetracker;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,10 +23,12 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Button register;
+    private TextView login;
     ProgressDialog pd;
 
-    private FirebaseAuth auth;
-    private DatabaseReference myDbRef;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseDatabase db = FirebaseDatabase.getInstance("https://food-waste-value-tracker-default-rtdb.europe-west1.firebasedatabase.app/");
+    private DatabaseReference ref = db.getReference().child("Users");
 
 
     @Override
@@ -45,31 +40,34 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         register = findViewById(R.id.register);
+        login = findViewById(R.id.loginBtn);
 
-        auth = FirebaseAuth.getInstance();
-        myDbRef = FirebaseDatabase.getInstance("https://food-waste-value-tracker-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         pd = new ProgressDialog(this);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String usernameTxt = email.getText().toString();
-                String emailTxt = email.getText().toString();
-                String passwordTxt = password.getText().toString();
+
+        login.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this,StartActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        register.setOnClickListener(v -> {
+            String usernameTxt = username.getText().toString();
+            String emailTxt = email.getText().toString();
+            String passwordTxt = password.getText().toString();
 
 
-                if (TextUtils.isEmpty(emailTxt) || TextUtils.isEmpty(passwordTxt)||TextUtils.isEmpty(usernameTxt)) {
+            if (TextUtils.isEmpty(emailTxt) || TextUtils.isEmpty(passwordTxt)||TextUtils.isEmpty(usernameTxt)) {
 
-                    Toast.makeText(RegisterActivity.this, "Empty Credentials Or Match Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Empty Credentials Or Match Password", Toast.LENGTH_SHORT).show();
 
-                } else if (passwordTxt.length() < 6 ){
+            } else if (passwordTxt.length() < 6 ){
 
-                    Toast.makeText(RegisterActivity.this, "Password has to be at least 6 character long", Toast.LENGTH_SHORT).show();
-                }else{
-                    registerUser(usernameTxt,emailTxt,passwordTxt);
-
-                }
+                Toast.makeText(RegisterActivity.this, "Password has to be at least 6 character long", Toast.LENGTH_SHORT).show();
+            }else{
+                registerUser(usernameTxt,emailTxt,passwordTxt);
 
             }
+
         });
 
     }
@@ -78,37 +76,28 @@ public class RegisterActivity extends AppCompatActivity {
 
             pd.setMessage("Please Wait. Signing Up");
             pd.show();
-            auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
+            auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
 
-                    HashMap<String, Object>  userData = new HashMap<>();
-                    userData.put("Username",username);
-                    userData.put("Email",email);
-                    userData.put("Password",password);
-                    userData.put("UserID",auth.getCurrentUser().getUid());
+                HashMap<String, Object>  userData = new HashMap<>();
+                userData.put("Username",username);
+                userData.put("Email",email);
+                userData.put("Password",password);
+                userData.put("UserID",auth.getCurrentUser().getUid());
 
-                    myDbRef.child("Users").child(auth.getCurrentUser().getUid()).child("User Info").setValue(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                pd.dismiss();
-                                Toast.makeText(RegisterActivity.this,"You have now Signed up. Start Tracking!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-                    });
+                ref.child(auth.getCurrentUser().getUid()).child("User Info").setValue(userData).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        pd.dismiss();
+                        Toast.makeText(RegisterActivity.this,"You have now Signed up. Start Tracking!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
 
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    pd.dismiss();
-                    Toast.makeText(RegisterActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                }
+            }).addOnFailureListener(e -> {
+                pd.dismiss();
+                Toast.makeText(RegisterActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
             });
 
 
