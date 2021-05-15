@@ -5,25 +5,23 @@ public class FoodItem {
     int price;
     int usage;
     String date;
+    int month;
     String category;
-    int value;
+    float value = (float) this.usage*this.price/100;
+    float valueloss = (float)this.price-this.value;
 
-
-
-
-    public FoodItem() {
-    }
-
-    public FoodItem(String name, int price, int usage, String category) {
+    public FoodItem(String name, int price, int usage, String date, int month, String category, float value,float valueloss) {
         this.name = name;
         this.price = price;
         this.usage = usage;
-
+        this.date = date;
+        this.month = month;
+        this.category = category;
+        this.value = value;
+        this.valueloss=valueloss;
     }
 
-    public int value(int price, int usage){
-        this.value = price*usage;
-        return value;
+    public FoodItem() {
     }
 
 
@@ -59,17 +57,38 @@ public class FoodItem {
         this.date = date;
     }
 
-    public int getValue() {
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public float getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(float value) {
         this.value = value;
     }
 
+    public float getValueloss() {
+        return valueloss;
+    }
 
+    public void setValueloss(float valueloss) {
+        this.valueloss = valueloss;
+    }
 }
-
 
 
 

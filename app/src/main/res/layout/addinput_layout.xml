@@ -25,12 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Food Name"
+            android:id="@+id/fnameInput"
             android:inputType="text">
         </EditText>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Food Price"
+            android:id="@+id/fpriceInput"
             android:inputType="number">
 
         </EditText>
@@ -38,42 +40,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Percentage Use of Food Item"
-            android:inputType="number">
+            android:inputType="number"
+            android:id="@+id/fusageInput">
 
         </EditText>
 
      <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+         android:id="@+id/radioBtns">
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bread"></RadioButton>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dairy"></RadioButton>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fruit &amp; Vege">
+                android:text="Bread"
+                android:id="@+id/breadBtn">
 
             </RadioButton>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Meat">
+                android:text="Dairy"
+                android:checked="false"
+                android:id="@+id/dairyBtn">
 
             </RadioButton>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Other">
+                android:text="Fruit &amp; Vege"
+                android:checked="false"
+                android:id="@+id/fruitBtn">
+
+            </RadioButton>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meat"
+                android:checked="false"
+                android:id="@+id/meatBtn">
+
+            </RadioButton>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Other"
+                android:id="@+id/otherBtn">
 
             </RadioButton>
     </RadioGroup>
