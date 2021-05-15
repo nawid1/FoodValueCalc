@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="8dp"
+    app:cardCornerRadius="10dp"
+    android:padding="10dp"
+    android:layout_margin="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Food Item: "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:padding="10dp"/>
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Food Item Name"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/nameTxtField"
+                    android:padding="10dp"/>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Price: "
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="10dp"/>
+
+            <TextView
+                android:id="@+id/priceTxtField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="Food Item Price"
+                android:textSize="20sp"
+                android:padding="10dp"/>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Usage: "
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Food Item Price"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"
+                android:padding="10dp"
+                android:id="@+id/usageTxtField"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

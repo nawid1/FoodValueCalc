@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="10dp"
+    android:id="@+id/cardview"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+
+    app:cardUseCompatPadding="true">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:orientation="vertical"
+        android:id="@+id/linearlayout">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameTxt1"
+            android:text="Food Name"
+            android:textStyle="bold"
+            android:textSize="19sp">
+
+        </TextView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/priceTxt1"
+            android:text="Price"
+            android:textSize="19sp">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/usageTxt1"
+            android:text="Usage"
+            android:textSize="19sp">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/categoryTxt1"
+            android:text="Category"
+            android:textSize="19sp">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateTxt1"
+            android:text="Date"
+            android:textSize="19sp">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/valueTxt1"
+            android:text="Value"
+            android:textSize="19sp">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/valuelossTxt1"
+            android:text="ValueLoss"
+            android:textSize="19sp">
+        </TextView>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/linearlayout">
+
+    </ImageView>
+
+
+</RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
