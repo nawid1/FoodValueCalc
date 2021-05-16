@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 
 public class HomeFragment extends Fragment {
 
@@ -32,6 +34,7 @@ public class HomeFragment extends Fragment {
     private DatabaseReference ref = db.getReference().child("Fooditem").child(uid);
 
     private TextView totalvaluelossTxt;
+    private TextView totalvaluemonthTxt;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -45,11 +48,14 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         totalvaluelossTxt = view.findViewById(R.id.totalValuelossTxt);
+        totalvaluemonthTxt = view.findViewById(R.id.totalValuelossMonthTxt);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 int totalValueloss=0;
+                int monthlyValueloss=0;
+
 
                 for (DataSnapshot snap:snapshot.getChildren()){
 
@@ -57,6 +63,8 @@ public class HomeFragment extends Fragment {
                     totalValueloss += foodItem.getValueloss();
                     String TotalValueLoss = "Total Valueloss: " + totalValueloss;
                     totalvaluelossTxt.setText(TotalValueLoss);
+
+
                 }
             }
 

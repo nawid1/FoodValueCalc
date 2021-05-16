@@ -1,5 +1,6 @@
 package com.foodwaste.foodwastevaluetracker.Fragments;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -29,6 +31,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.foodwaste.foodwastevaluetracker.Model.FoodItem;
 import com.foodwaste.foodwastevaluetracker.R;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -41,12 +45,17 @@ import org.joda.time.MutableDateTime;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
+import java.util.zip.Inflater;
 
 
 public class AddFragment extends Fragment {
     //Global Variables declaration
-    private TextView totalValueLoss;
     private RecyclerView recyclerView;
+    private String postKey="";
+    private String fooditemName;
+    private int price=0;
+    private int usage=0;
     //FireBase Initialization
     private FirebaseDatabase db = FirebaseDatabase.getInstance("https://food-waste-value-tracker-default-rtdb.europe-west1.firebasedatabase.app/");
     private String uid = FirebaseAuth.getInstance().getUid();
@@ -62,7 +71,7 @@ public class AddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        View view= inflater.inflate(R.layout.fragment_add, container, false);
-        //Recyclerview and Adapter initialization
+        //Recyclerview initialization to java class
         recyclerView = view.findViewById(R.id.RecyclerView);
 
         //Floating action button in AddFragment
@@ -126,6 +135,15 @@ public class AddFragment extends Fragment {
                         break;
 
                 }
+                holder.mview.setOnClickListener(v -> {
+                     postKey = getRef(position).getKey();
+                     fooditemName = model.getName();
+                     price = model.getPrice();
+                     usage = model.getUsage();
+
+                     updateFooditem();
+
+                });
 
 
             }
@@ -146,7 +164,6 @@ public class AddFragment extends Fragment {
 
 
     }
-
 
 
     public class myViewholder extends RecyclerView.ViewHolder {
@@ -270,6 +287,88 @@ public class AddFragment extends Fragment {
         });
 
         dialog.show();
+    }
+
+    private void updateFooditem() {
+        //New alertdialog to inflate the updating cardview of fooditem
+        AlertDialog.Builder dialog =  new AlertDialog.Builder(getContext());
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        View view = layoutInflater.inflate(R.layout.update_layout,null);
+        dialog.setView(view);
+        final AlertDialog alertDialog = dialog.create();
+
+        //Initializing update layout textview & edittext to Java class
+        final TextView ftitle = view.findViewById(R.id.fnameTitleTxt);
+        final EditText updateFname =view.findViewById(R.id.updateFname);
+        final EditText updateFprice =view.findViewById(R.id.updateFprice);
+        final EditText updateFusage =view.findViewById(R.id.updateFusage);
+        RadioGroup radioGroup = view.findViewById(R.id.updateCategoryBtn);
+
+        //Initializing button update & delete
+        Button update = view.findViewById(R.id.updateBtn);
+        Button delete = view.findViewById(R.id.deleteBtn);
+
+        //Update title Text
+        ftitle.setText(fooditemName);
+        updateFname.setText(fooditemName);
+        updateFprice.setText(String.valueOf(price));
+        updateFusage.setText(String.valueOf(usage));
+
+
+        //Set onclick listener to the buttons of update layout
+        update.setOnClickListener(v -> {
+
+            RadioButton selectedRadiobutton = view.findViewById(radioGroup.getCheckedRadioButtonId());
+            //Getiing the user typed input to java and adding it to Food item Class
+            String name =updateFname.getText().toString();
+            int price = Integer.parseInt(updateFprice.getText().toString());
+            int usage =Integer.parseInt(updateFusage.getText().toString());
+            String category = selectedRadiobutton.getText().toString();
+            //Date to firebase
+            @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Calendar cal = Calendar.getInstance();
+            String date = dateFormat.format(cal.getTime());
+            MutableDateTime epoch = new MutableDateTime();
+            epoch.setDate(0);
+            DateTime now = new DateTime();
+            Months months = Months.monthsBetween(epoch, now);
+
+            float value = price * usage / 100;
+            float valueloss = price - value;
+
+            FoodItem foodItem = new FoodItem(name,price,usage,date,months.getMonths(),category,value,valueloss);
+            ref.child(postKey).setValue(foodItem).addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                Toast.makeText(view.getContext(),"Item Updated",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(view.getContext(),""+ (task.getException()).toString(),Toast.LENGTH_SHORT).show();
+                }
+
+                alertDialog.dismiss();
+                 });
+
+
+
+        });
+
+
+        delete.setOnClickListener(v -> {
+            ref.child(postKey).removeValue().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    Toast.makeText(view.getContext(),"Item Deleted",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(view.getContext(),""+ (task.getException()).toString(),Toast.LENGTH_SHORT).show();
+                }
+
+                alertDialog.dismiss();
+            });
+
+
+        });
+
+        alertDialog.show();
+
+
     }
 
 }
