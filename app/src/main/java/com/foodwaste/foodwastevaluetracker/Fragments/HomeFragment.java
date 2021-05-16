@@ -27,7 +27,9 @@ import org.joda.time.Months;
 import org.joda.time.MutableDateTime;
 import org.w3c.dom.Text;
 
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class HomeFragment extends Fragment {
@@ -44,15 +46,14 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        totalvalueloss = view.findViewById(R.id.totalValuelossTxt);
-        monthlyValueloss = view.findViewById(R.id.totalValuelossMonthTxt);
+        totalvalueloss = view.findViewById(R.id.total);
+        monthlyValueloss = view.findViewById(R.id.monthlyTotal);
 
         //Initializing current month
         MutableDateTime epoch = new MutableDateTime();
@@ -84,15 +85,16 @@ public class HomeFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int totalValueloss=0;
 
 
+                int totalValueloss =0;
                 for (DataSnapshot snap:snapshot.getChildren()){
+                    Map <String,Object> map = (Map<String, Object>)snap.getValue();
+                    Object totalVl= map.get("valueloss");
+                    int ptotal= Integer.parseInt(String.valueOf(totalVl));
+                    totalValueloss+=ptotal;
+                    totalvalueloss.setText("Total Valueloss: "+totalValueloss);
 
-                    FoodItem foodItem = snap.getValue(FoodItem.class);
-                    totalValueloss += foodItem.getValueloss();
-                    String TotalValueLoss = "Total Valueloss: " + totalValueloss;
-                    totalvalueloss.setText(TotalValueLoss);
 
                 }
 
