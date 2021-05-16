@@ -44,6 +44,7 @@ import org.joda.time.Months;
 import org.joda.time.MutableDateTime;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 import java.util.zip.Inflater;
@@ -56,6 +57,7 @@ public class AddFragment extends Fragment {
     private String fooditemName;
     private int price=0;
     private int usage=0;
+
     //FireBase Initialization
     private FirebaseDatabase db = FirebaseDatabase.getInstance("https://food-waste-value-tracker-default-rtdb.europe-west1.firebasedatabase.app/");
     private String uid = FirebaseAuth.getInstance().getUid();
@@ -246,9 +248,11 @@ public class AddFragment extends Fragment {
             // Check if required inputfields are typed. And push to firebase
             if (TextUtils.isEmpty(name)) {
                 fname.setError("Type in Food Name");
-            } else if (TextUtils.isEmpty(price)) {
+            }
+            if (TextUtils.isEmpty(price)) {
                 fprice.setError("Type in Food Price");
-            } else if (TextUtils.isEmpty(usage)) {
+            }
+            if (TextUtils.isEmpty(usage)) {
                 fusage.setError("Usede Percentage is Required");
             } else {
                 //Date to firebase
