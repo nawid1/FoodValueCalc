@@ -2,8 +2,10 @@ package com.foodwaste.foodwastevaluetracker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.foodwaste.foodwastevaluetracker.Fragments.HomeFragment;
+import com.foodwaste.foodwastevaluetracker.Fragments.ProfileFragment;
 import com.foodwaste.foodwastevaluetracker.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,7 +46,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_update_profile);
 
         auth=FirebaseAuth.getInstance();
-
+        findViewById(R.id.backUpdateprofile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UpdateProfileActivity.this, MainActivity.class));
+                finish();
+            }
+        });
         findViewById(R.id.emailUpdateBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { updateDialog(EMAIL);}
