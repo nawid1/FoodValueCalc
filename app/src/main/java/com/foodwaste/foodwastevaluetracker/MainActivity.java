@@ -1,9 +1,14 @@
 package com.foodwaste.foodwastevaluetracker;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.foodwaste.foodwastevaluetracker.Fragments.AddFragment;
 import com.foodwaste.foodwastevaluetracker.Fragments.HomeFragment;
@@ -13,6 +18,7 @@ import com.foodwaste.foodwastevaluetracker.Fragments.ProfileFragment;
 public class MainActivity extends AppCompatActivity {
 
     MeowBottomNavigation bottomNavigation;
+    Toolbar toolbar;
 
     /* private BottomNavigationView bottomNavigationView;
      private Fragment selectorFragment;*/
@@ -23,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Assign variable
         bottomNavigation = findViewById(R.id.bottom_navigation);
+        toolbar = findViewById(R.id.toolbar);
 
         //Add menu items
         bottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.ic_home));
@@ -30,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.ic_profile));
 
         bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
+
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
                 //Initialize fragment
@@ -39,16 +47,19 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
                         //When id is 1
                         //Initialize home fragment
+                        toolbar.setTitle("Loss Tracker");
                         fragment = new HomeFragment();
                         break;
                     case 2:
                         //When id is 2
                         //Initialize add fragment
+                        toolbar.setTitle("Food Items");
                         fragment = new AddFragment();
                         break;
                     case 3:
                         //When id is 3
                         //Initialize profile fragment
+                        toolbar.setTitle("Profile");
                         fragment = new ProfileFragment();
                         break;
                 }

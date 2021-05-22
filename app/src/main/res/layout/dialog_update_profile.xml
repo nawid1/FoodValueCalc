@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="30dp"
+    android:paddingHorizontal="10dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:id="@+id/title"
+        android:layout_marginTop="5dp"
+        android:text="Update Profile"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Old email"
+        android:layout_marginTop="20dp"
+        android:id="@+id/oldEmailBox"
+        android:inputType="textEmailAddress"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Old password"
+        android:layout_marginTop="20dp"
+        android:id="@+id/oldPasswordBox"
+        android:inputType="textPassword"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="User Name"
+        android:layout_marginTop="20dp"
+        android:id="@+id/updateBox"
+        android:inputType="text">
+    </EditText>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="cancel"
+            android:layout_margin="5dp"
+            android:id="@+id/cancelBtn"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="update"
+            android:layout_margin="5dp"
+            android:id="@+id/updateBtn"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+</RelativeLayout>

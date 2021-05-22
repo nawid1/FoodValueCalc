@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#03A9F4"
+    android:background="#3c415e"
     android:orientation="vertical"
-    tools:context=".StartActivity">
+    tools:context=".LoginActivity">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="302dp"
+        android:layout_width="380dp"
         android:layout_height="629dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
@@ -17,7 +18,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="100dp"
-        card_view:cardBackgroundColor="#5468D3"
+        card_view:cardCornerRadius="10dp"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/registerBtn"
@@ -33,7 +34,8 @@
                 android:layout_height="49dp"
                 android:layout_marginTop="84dp"
                 android:text="Register"
-                card_view:backgroundTint="#03A9F4"
+                android:textColor="@color/white"
+                card_view:backgroundTint="#3c415e"
                 card_view:layout_constraintEnd_toEndOf="@+id/loginBtn"
                 card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toStartOf="@+id/loginBtn"
@@ -48,7 +50,7 @@
                 android:ems="10"
                 android:hint="password"
                 android:inputType="textPassword"
-                android:textColorHint="#FFFFFF"
+                android:textColorHint="#3c415e"
                 card_view:layout_constraintEnd_toEndOf="@+id/emailLogin"
                 card_view:layout_constraintTop_toBottomOf="@+id/emailLogin" />
 
@@ -61,7 +63,7 @@
                 android:ems="10"
                 android:hint="Email"
                 android:inputType="textPersonName"
-                android:textColorHint="#FFFFFF"
+                android:textColorHint="#3c415e"
                 android:visibility="visible"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -73,7 +75,8 @@
                 android:layout_height="49dp"
                 android:layout_marginTop="60dp"
                 android:text="Login"
-                card_view:backgroundTint="#03A9F4"
+                android:textColor="@color/white"
+                card_view:backgroundTint="#3c415e"
                 card_view:layout_constraintEnd_toEndOf="@+id/passwordLogin"
                 card_view:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
 

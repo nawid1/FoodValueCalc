@@ -42,6 +42,8 @@ import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
 import org.joda.time.MutableDateTime;
+import org.joda.time.Weeks;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -93,7 +95,7 @@ public class AddFragment extends Fragment {
         super.onStart();
         FirebaseRecyclerOptions<FoodItem> options =
                 new FirebaseRecyclerOptions.Builder<FoodItem>()
-                        .setQuery(ref, FoodItem.class)
+                        .setQuery(ref, FoodItem.class).setLifecycleOwner(this)
                         .build();
         LinearLayoutManager linearLayout = new LinearLayoutManager(getContext());
         linearLayout.setReverseLayout(true);
@@ -161,9 +163,7 @@ public class AddFragment extends Fragment {
 
 
         recyclerView.setAdapter(adapter);
-        adapter.startListening();
         adapter.notifyDataSetChanged();
-
 
     }
 
@@ -263,12 +263,13 @@ public class AddFragment extends Fragment {
                 epoch.setDate(0);
                 DateTime now = new DateTime();
                 Months months = Months.monthsBetween(epoch, now);
+                Weeks weeks = Weeks.weeksBetween(epoch,now);
 
                 float value = (Integer.parseInt(price) * Integer.parseInt(usage) / 100);
                 float valueloss = (Integer.parseInt(price) - value);
 
                 FoodItem foodItem = new FoodItem(name, Integer.parseInt(price),
-                        Integer.parseInt(usage), date, months.getMonths(), category, value, valueloss);
+                        Integer.parseInt(usage), date, months.getMonths(), category, value, valueloss, weeks.getWeeks());
 
                 ref.child(id).setValue(foodItem).addOnCompleteListener(task -> {
 
@@ -336,11 +337,12 @@ public class AddFragment extends Fragment {
             epoch.setDate(0);
             DateTime now = new DateTime();
             Months months = Months.monthsBetween(epoch, now);
+            Weeks weeks = Weeks.weeksBetween(epoch,now);
 
             float value = price * usage / 100;
             float valueloss = price - value;
 
-            FoodItem foodItem = new FoodItem(name,price,usage,date,months.getMonths(),category,value,valueloss);
+            FoodItem foodItem = new FoodItem(name,price,usage,date,months.getMonths(),category,value,valueloss,weeks.getWeeks());
             ref.child(postKey).setValue(foodItem).addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                 Toast.makeText(view.getContext(),"Item Updated",Toast.LENGTH_SHORT).show();

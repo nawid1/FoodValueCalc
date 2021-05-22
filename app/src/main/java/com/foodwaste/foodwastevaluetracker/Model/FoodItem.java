@@ -7,10 +7,12 @@ public class FoodItem {
     String date;
     int month;
     String category;
-    float value = (float) this.usage*this.price/100;
-    float valueloss = (float)this.price-this.value;
+    float value = (float) this.usage * this.price / 100;
+    float valueloss = (float) this.price - this.value;
+    int week;
 
-    public FoodItem(String name, int price, int usage, String date, int month, String category, float value,float valueloss) {
+
+    public FoodItem(String name, int price, int usage, String date, int month, String category, float value, float valueloss, int week) {
         this.name = name;
         this.price = price;
         this.usage = usage;
@@ -18,7 +20,8 @@ public class FoodItem {
         this.month = month;
         this.category = category;
         this.value = value;
-        this.valueloss=valueloss;
+        this.valueloss = valueloss;
+        this.week = week;
     }
 
     public FoodItem() {
@@ -37,60 +40,33 @@ public class FoodItem {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public int getUsage() {
         return usage;
-    }
-
-    public void setUsage(int usage) {
-        this.usage = usage;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public int getMonth() {
         return month;
     }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
     public String getCategory() {
         return category;
     }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public float getValue() {
         return value;
     }
-
-    public void setValue(float value) {
-        this.value = value;
-    }
-
     public float getValueloss() {
         return valueloss;
     }
-
-    public void setValueloss(float valueloss) {
-        this.valueloss = valueloss;
+    public int getWeek() {
+        return week;
     }
+
+
+
 }
-
-
 
    /* public Map<String, Object> toMap(){
 

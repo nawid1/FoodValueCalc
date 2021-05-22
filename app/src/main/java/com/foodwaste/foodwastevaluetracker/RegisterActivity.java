@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
 
         login.setOnClickListener(v -> {
-            Intent intent = new Intent(RegisterActivity.this,StartActivity.class);
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
