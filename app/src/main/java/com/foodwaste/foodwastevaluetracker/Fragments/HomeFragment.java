@@ -2,10 +2,12 @@ package com.foodwaste.foodwastevaluetracker.Fragments;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -32,6 +34,7 @@ import org.joda.time.MutableDateTime;
 import org.joda.time.Weeks;
 import org.w3c.dom.Text;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Map;
@@ -53,6 +56,7 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,14 +105,13 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setMonthlyValueloss(){
 
         //Retrieve & Initializing current month's valueloss
-        MutableDateTime epoch = new MutableDateTime();
-        epoch.setDate(0);
-        DateTime now = new DateTime();
-        Months months = Months.monthsBetween(epoch, now);
-        Query query = ref.orderByChild("month").equalTo(months.getMonths());
+        LocalDate today = LocalDate.now();
+        int month = today.getMonthValue();
+        Query query = ref.orderByChild("month").equalTo(month);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {

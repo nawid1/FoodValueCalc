@@ -2,9 +2,11 @@ package com.foodwaste.foodwastevaluetracker.Fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -46,6 +48,7 @@ import org.joda.time.Weeks;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -220,6 +223,8 @@ public class AddFragment extends Fragment {
 
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void addFootItem() {
         AlertDialog.Builder myDialog = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -262,14 +267,15 @@ public class AddFragment extends Fragment {
                 MutableDateTime epoch = new MutableDateTime();
                 epoch.setDate(0);
                 DateTime now = new DateTime();
-                Months months = Months.monthsBetween(epoch, now);
+                LocalDate today = LocalDate.now();
+                int month = today.getMonthValue();
                 Weeks weeks = Weeks.weeksBetween(epoch,now);
 
                 float value = (Integer.parseInt(price) * Integer.parseInt(usage) / 100);
                 float valueloss = (Integer.parseInt(price) - value);
 
                 FoodItem foodItem = new FoodItem(name, Integer.parseInt(price),
-                        Integer.parseInt(usage), date, months.getMonths(), category, value, valueloss, weeks.getWeeks());
+                        Integer.parseInt(usage), date, month, category, value, valueloss, weeks.getWeeks());
 
                 ref.child(id).setValue(foodItem).addOnCompleteListener(task -> {
 
@@ -294,6 +300,7 @@ public class AddFragment extends Fragment {
         dialog.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void updateFooditem() {
         //New alertdialog to inflate the updating cardview of fooditem
         AlertDialog.Builder dialog =  new AlertDialog.Builder(getContext());
@@ -336,13 +343,14 @@ public class AddFragment extends Fragment {
             MutableDateTime epoch = new MutableDateTime();
             epoch.setDate(0);
             DateTime now = new DateTime();
-            Months months = Months.monthsBetween(epoch, now);
+            LocalDate today = LocalDate.now();
+            int month = today.getMonthValue();
             Weeks weeks = Weeks.weeksBetween(epoch,now);
 
             float value = price * usage / 100;
             float valueloss = price - value;
 
-            FoodItem foodItem = new FoodItem(name,price,usage,date,months.getMonths(),category,value,valueloss,weeks.getWeeks());
+            FoodItem foodItem = new FoodItem(name,price,usage,date,month,category,value,valueloss,weeks.getWeeks());
             ref.child(postKey).setValue(foodItem).addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                 Toast.makeText(view.getContext(),"Item Updated",Toast.LENGTH_SHORT).show();

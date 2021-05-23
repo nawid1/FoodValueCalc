@@ -43,8 +43,10 @@ public class LoginActivity extends AppCompatActivity {
         String emailInput = email.getText().toString();
         String passwordInput = password.getText().toString();
         if (emailInput.isEmpty()||passwordInput.isEmpty()){
+
             Toast.makeText(LoginActivity.this,"Please Fill out Email and Password",Toast.LENGTH_SHORT).show();
         }else{
+
             loginUser(emailInput,passwordInput);
             }
 
@@ -57,6 +59,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+
+    //onStart funktionen, der tjekker hvis brugeren allerede har registret, så bliver brugeren direkte startet i Main activity
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!=null){
+
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+
+    }
+
+
+
 
     //Login method. Den er udenfor main men bliver kaldt længere oppe.
     private void loginUser(String email,String password) {
@@ -75,18 +95,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-    //onStart funktionen, der tjekker hvis brugeren allerede har registret, så bliver brugeren direkte startet i Main activity
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user!=null){
-
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-        }
-
-    }
 
 }

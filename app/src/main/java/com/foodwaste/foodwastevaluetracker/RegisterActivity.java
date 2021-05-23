@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.foodwaste.foodwastevaluetracker.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -78,13 +80,10 @@ public class RegisterActivity extends AppCompatActivity {
             pd.show();
             auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
 
-                HashMap<String, Object>  userData = new HashMap<>();
-                userData.put("Username",username);
-                userData.put("Email",email);
-                userData.put("Password",password);
-                userData.put("UserID",auth.getCurrentUser().getUid());
+                String uid = auth.getCurrentUser().getUid();
+                User user = new User (username,uid,email);
 
-                ref.child(auth.getCurrentUser().getUid()).child("User Info").setValue(userData).addOnCompleteListener(task -> {
+                ref.child(auth.getCurrentUser().getUid()).setValue(user).addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         pd.dismiss();
                         Toast.makeText(RegisterActivity.this,"You have now Signed up. Start Tracking!", Toast.LENGTH_SHORT).show();

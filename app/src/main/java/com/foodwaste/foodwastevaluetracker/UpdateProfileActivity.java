@@ -104,7 +104,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         switch (updateType){
 
             case USER_NAME:
-                updateBox.setText(user.getUserName());
+                updateBox.setText(user.getUsername());
                 updateBox.setHint("Enter New user name");
                 oldEmailBox.setVisibility(View.GONE);
                 oldPassBox.setVisibility(View.GONE);

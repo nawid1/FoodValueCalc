@@ -85,7 +85,7 @@ public class ProfileFragment extends Fragment {
 
                 user = dataSnapshot.getValue(User.class);
 
-                userNameTextV.setText(user.getUserName());
+                userNameTextV.setText(user.getUsername());
                 userEmailTextV.setText(user.getEmail());
 
 
